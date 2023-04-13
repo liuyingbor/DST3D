@@ -19,28 +19,31 @@ namespace ET.Server
                 return;
             }
 
-            var account = request.Account;
-            AccountDB accountDB = null;
-            var list = await session.GetDirectDB().Query<AccountDB>(db => db.Account == account);
-            if (list.Count > 0)
+            string account = request.Account;
+            using (await CoroutineLockComponent.Instance.Wait(CoroutineLockType.AccountLogin, account.GetHashCode()))
             {
-                accountDB = list[0];
-            }
-            
-            if (accountDB == null)
-            {
-                accountDB = session.AddChild<AccountDB>();
-                accountDB.Account = account;
-                accountDB.Password = request.Password;
-                await session.GetDirectDB().Save(accountDB);
-            }
-            else
-            {
-                if (accountDB.Password != request.Password)
+                AccountDB accountDB = null;
+                var list = await session.GetDirectDB().Query<AccountDB>(db => db.Account == account);
+                if (list.Count > 0)
                 {
-                    response.Error = ErrorCode.ERR_AccontOrPasswardErr;
-                    response.Message = "账号密码错误!";
-                    return;
+                    accountDB = list[0];
+                }
+
+                if (accountDB == null)
+                {
+                    accountDB = session.AddChild<AccountDB>();
+                    accountDB.Account = account;
+                    accountDB.Password = request.Password;
+                    await session.GetDirectDB().Save(accountDB);
+                }
+                else
+                {
+                    if (accountDB.Password != request.Password)
+                    {
+                        response.Error = ErrorCode.ERR_AccontOrPasswardErr;
+                        response.Message = "账号密码错误!";
+                        return;
+                    }
                 }
             }
 
