@@ -19,6 +19,8 @@ namespace ET.Server
 
             Root.Instance.Scene.AddComponent<NavmeshComponent>();
 
+            Root.Instance.Scene.AddComponent<DBManagerComponent>();
+            
             StartProcessConfig processConfig = StartProcessConfigCategory.Instance.Get(Options.Instance.Process);
             switch (Options.Instance.AppType)
             {

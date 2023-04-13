@@ -109,6 +109,40 @@ namespace ET.Client
      		}
      	}
 
+		public UnityEngine.UI.Dropdown E_ServerAddressDropdown
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_ServerAddressDropdown == null )
+     			{
+		    		this.m_E_ServerAddressDropdown = UIFindHelper.FindDeepChild<UnityEngine.UI.Dropdown>(this.uiTransform.gameObject,"Sprite_BackGround/E_ServerAddress");
+     			}
+     			return this.m_E_ServerAddressDropdown;
+     		}
+     	}
+
+		public UnityEngine.UI.Image E_ServerAddressImage
+     	{
+     		get
+     		{
+     			if (this.uiTransform == null)
+     			{
+     				Log.Error("uiTransform is null.");
+     				return null;
+     			}
+     			if( this.m_E_ServerAddressImage == null )
+     			{
+		    		this.m_E_ServerAddressImage = UIFindHelper.FindDeepChild<UnityEngine.UI.Image>(this.uiTransform.gameObject,"Sprite_BackGround/E_ServerAddress");
+     			}
+     			return this.m_E_ServerAddressImage;
+     		}
+     	}
+
 		public void DestroyWidget()
 		{
 			this.m_E_LoginButton = null;
@@ -117,6 +151,8 @@ namespace ET.Client
 			this.m_E_AccountImage = null;
 			this.m_E_PasswordInputField = null;
 			this.m_E_PasswordImage = null;
+			this.m_E_ServerAddressDropdown = null;
+			this.m_E_ServerAddressImage = null;
 			this.uiTransform = null;
 		}
 
@@ -126,6 +162,8 @@ namespace ET.Client
 		private UnityEngine.UI.Image m_E_AccountImage = null;
 		private UnityEngine.UI.InputField m_E_PasswordInputField = null;
 		private UnityEngine.UI.Image m_E_PasswordImage = null;
+		private UnityEngine.UI.Dropdown m_E_ServerAddressDropdown = null;
+		private UnityEngine.UI.Image m_E_ServerAddressImage = null;
 		public Transform uiTransform = null;
 	}
 }

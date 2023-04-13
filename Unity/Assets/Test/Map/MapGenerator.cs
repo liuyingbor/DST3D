@@ -35,6 +35,12 @@ namespace ET
         {
             print(grid.GetVertexByWorldPosition(testObj.transform.position).Position);
         }
+        
+        [Button("测试格子")]
+        public void TestCell(Vector2Int index)
+        {
+            print(grid.GetRightTopMapCell(index).Position);
+        }
 
         /// <summary>
         /// 生成地形Mesh
